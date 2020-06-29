@@ -19,7 +19,7 @@ public class CarController {
     private CarService service;
 
     @GetMapping(value = "/cars")
-    public String getCars(@RequestParam(defaultValue = "en") String locale, ModelMap modelMap){
+    public String getCars(ModelMap modelMap){
         modelMap.addAttribute("carList",service.getCarList());
         return "cars";
     }
