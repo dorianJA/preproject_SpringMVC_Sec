@@ -20,21 +20,10 @@ public class CarController {
 
     @GetMapping(value = "/cars")
     public String getCars(@RequestParam(defaultValue = "en") String locale, ModelMap modelMap){
-        List<Car> cars = new ArrayList<>();
-        cars = service.getCarList();
-        String loc = getLocale(locale);
-        modelMap.addAttribute("carList",cars);
-        modelMap.addAttribute("locale",loc);
+        modelMap.addAttribute("carList",service.getCarList());
         return "cars";
     }
 
-    private String getLocale(String local){
-        switch (local){
-            case "en": return "CARS";
-            case "ru": return "МАШИНЫ";
-            default: return "Car list";
-        }
-    }
 
 
 }
