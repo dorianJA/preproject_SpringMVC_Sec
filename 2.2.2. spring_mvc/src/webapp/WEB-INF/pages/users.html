@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Car List!</title>
+    <title>CRUD APP</title>
 </head>
 <body>
 <h1>
@@ -14,15 +14,26 @@
     <tr>
         <td>Name</td>
         <td>Age</td>
+        <th>Edit user</th>
+        <th>Delete user</th>
     </tr>
 
     <th:block th:each="user : ${listUser}">
         <tr>
-            <th th:text="${user.name}"></th>
-            <th th:text="${user.age}"></th>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.age}"></td>
+            <td><a th:href="@{/edit(id=${user.id})}">edit</a></td>
+            <td><a th:href="@{/delete(id=${user.id})}">delete</a></td>
         </tr>
     </th:block>
 </table>
+
+<form th:action="@{/add}" th:object="${newUser}" method="post">
+    <p>Name:     <input type="text" name="name" /></p>
+    <p>Age:      <input type="text" name="age" /></p>
+    <p>Password: <input type="text" name="password" /></p>
+    <input type="submit" value="add"> <br>
+</form>
 
 </body>
 </html>

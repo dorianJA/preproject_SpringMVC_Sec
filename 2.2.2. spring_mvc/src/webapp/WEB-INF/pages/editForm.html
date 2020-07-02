@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/edit}" th:object="${userData}" method="post">
+    <p>Id:       <input type="text" th:field="*{id}" readonly/></p>
+    <p>Name:     <input type="text" th:field="*{name}"/></p>
+    <p>Age:      <input type="text" th:field="*{age}"/></p>
+    <p>Password: <input type="text" th:field="*{password}"/></p>
+    <p><input type="submit" value="change"/>
+</form>
+</body>
+</html>
