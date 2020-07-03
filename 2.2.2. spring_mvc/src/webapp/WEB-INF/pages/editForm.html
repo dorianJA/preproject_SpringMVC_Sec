@@ -7,7 +7,7 @@
 </head>
 <body>
 <form th:action="@{/edit}" th:object="${userData}" method="post">
-    <p>Id:       <input type="text" th:field="*{id}" readonly/></p>
+    <p>Id:       <input type="text" th:field="*{id}" disabled/></p>
     <p>Name:     <input type="text" th:field="*{name}"/></p>
     <p>Age:      <input type="text" th:field="*{age}"/></p>
     <p>Password: <input type="text" th:field="*{password}"/></p>

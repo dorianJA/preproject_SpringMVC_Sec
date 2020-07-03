@@ -28,25 +28,26 @@ public class MainController {
     }
 
     @PostMapping(value = "/edit")
-    public String editUsers(@ModelAttribute("userData") User userData){
+    public String editUsers(@ModelAttribute("userData") User userData) {
         userService.updateUser(userData);
         return "redirect:/users";
     }
 
     @GetMapping(value = "/edit")
-    public String editUsers(@RequestParam("id")int id, ModelMap model){
+    public String editUsers(@RequestParam("id") int id, ModelMap model) {
         User user = userService.getUserById(id);
-        model.addAttribute("userData",user);
+        model.addAttribute("userData", user);
         return "editForm";
     }
+
     @GetMapping(value = "/delete")
-    public String deleteUser(@RequestParam("id")int id){
+    public String deleteUser(@RequestParam("id") int id) {
         userService.removeUser(id);
         return "redirect:/users";
     }
 
     @PostMapping(value = "/add")
-    public String addUser(@ModelAttribute("newUser")  User newUser){
+    public String addUser(@ModelAttribute("newUser") User newUser) {
         userService.addUser(newUser);
         return "redirect:/users";
     }
