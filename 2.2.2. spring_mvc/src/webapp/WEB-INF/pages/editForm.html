@@ -6,10 +6,11 @@
     <title>Title</title>
 </head>
 <body>
+<p>Edit Users!</p>
 <form th:action="@{/edit}" th:object="${userData}" method="post">
-    <p>Id:       <input type="text" th:field="*{id}" disabled/></p>
-    <p>Name:     <input type="text" th:field="*{name}"/></p>
-    <p>Age:      <input type="text" th:field="*{age}"/></p>
+    <input hidden type="text" th:field="*{id}"/>
+    <p>Name: <input type="text" th:field="*{name}"/></p>
+    <p>Age: <input type="text" th:field="*{age}"/></p>
     <p>Password: <input type="text" th:field="*{password}"/></p>
     <p><input type="submit" value="change"/>
 </form>
