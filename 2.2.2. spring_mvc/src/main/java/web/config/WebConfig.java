@@ -18,6 +18,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
+
 import java.util.Locale;
 
 @Configuration
@@ -78,6 +79,7 @@ public class WebConfig implements WebMvcConfigurer {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
