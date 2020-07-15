@@ -13,12 +13,13 @@ public class User implements UserDetails  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "User name can't be empty")
+    @NotBlank(message = "Name can't be empty")
     @Size(min=2, max=30)
     private String name;
     @NotBlank(message = "Password can't be empty")
     private String password;
-    @Min(value = 10)
+
+    @Min(value = 10,message = "Age must be more than 10")
     private int age;
 
     @ManyToMany(fetch = FetchType.EAGER)

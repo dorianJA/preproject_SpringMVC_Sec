@@ -13,7 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import web.config.handler.LoginSuccessHandler;
 import web.service.UserDetailsServiceImpl;
 import web.service.UserServiceImpl;
@@ -54,6 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter, CsrfFilter.class);
         System.out.println("--------configure Http----------");
         http.formLogin()
                 // указываем страницу с формой логина
@@ -63,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // указываем action с формы логина
                 .loginProcessingUrl("/login")
                 // Указываем параметры логина и пароля с формы логина
+                .failureUrl("/login?error=true")
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
                 // даем доступ к форме логина всем
@@ -77,14 +84,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
                 .and().csrf().disable();
-
+        //если не достаточно прав перенаправление на страницу
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/accessDenied");
         http
                 // делаем страницу регистрации недоступной для авторизированных пользователей
                 .authorizeRequests()
                 //страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
                 // защищенные URL
-                .antMatchers("/user").hasAnyAuthority("USER","ADMIN")
+                .antMatchers("/user").hasAnyAuthority("USER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest().authenticated();
     }
 
