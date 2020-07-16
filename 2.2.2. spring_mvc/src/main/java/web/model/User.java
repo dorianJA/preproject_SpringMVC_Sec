@@ -20,27 +20,27 @@ public class User implements UserDetails  {
     private String password;
 
     @Min(value = 10,message = "Age must be more than 10")
-    private int age;
+    private String age;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "t_user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String name, String password, int age) {
+    public User(String name, String password, String age) {
         this.name = name;
         this.password = password;
         this.age = age;
     }
 
-    public User(String name, String password, int age, Role role){
+    public User(String name, String password, String age, Role role){
         this.name = name;
         this.password = password;
         this.age = age;
         roles.add(role);
     }
 
-    public User(String name, String password, int age, Set<Role> roles){
+    public User(String name, String password, String age, Set<Role> roles){
         this.name = name;
         this.password = password;
         this.age = age;
@@ -105,11 +105,11 @@ public class User implements UserDetails  {
         this.password = password;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

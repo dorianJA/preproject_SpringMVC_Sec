@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
+import web.validator.UserValidator;
 
 
 import javax.validation.Valid;
@@ -22,6 +23,9 @@ public class MainController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserValidator userValidator;
 
 
     @GetMapping(value = "/admin/users")
@@ -58,6 +62,8 @@ public class MainController {
 
     @PostMapping(value = "/admin/add")
     public String addUser(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model) {
+
+        userValidator.validate(newUser,result);
 
         if (result.hasErrors()) {
             List<User> users = userService.getAllUsers();

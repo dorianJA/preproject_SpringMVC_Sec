@@ -22,8 +22,7 @@ public class UserDAOImpl implements UserDAO {
 
     private SessionFactory sessionFactory;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -32,14 +31,11 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void addUser(User user) {
-        user.setRoles(Collections.singleton(new Role(1L,"USER")));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         sessionFactory.getCurrentSession().save(user);
     }
 
     @Override
     public void updateUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         sessionFactory.getCurrentSession().update(user);
 //        Session session = sessionFactory.openSession();
 //        Query<User> query = session.createQuery("update User set name =:pName, age =:pAge," +

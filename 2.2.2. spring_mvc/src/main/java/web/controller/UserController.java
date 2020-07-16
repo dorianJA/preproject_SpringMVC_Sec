@@ -23,16 +23,6 @@ import java.util.Set;
 public class UserController {
 
 
-//    @RequestMapping(value = "hello", method = RequestMethod.GET)
-//    public String printWelcome(ModelMap model) {
-//        List<String> messages = new ArrayList<>();
-//        messages.add("Hello!");
-//        messages.add("I'm Spring MVC-SECURITY application");
-//        messages.add("5.2.0 version by sep'19 ");
-//        model.addAttribute("messages", messages);
-//        return "hello";
-//    }
-
     @GetMapping("/user")
     public String userInfo(@AuthenticationPrincipal UserDetails user, Model model) {
         Set<Role> roles = (Set<Role>) user.getAuthorities();
@@ -48,7 +38,7 @@ public class UserController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String loginPage(@RequestParam(name = "error",required = false) Boolean error,Model model) {
         if(Boolean.TRUE.equals(error)){
-            model.addAttribute("error",true);
+            model.addAttribute("error","Incorrect  name or password");
         }
         return "login";
     }
